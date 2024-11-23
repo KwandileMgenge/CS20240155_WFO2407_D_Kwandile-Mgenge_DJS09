@@ -5,54 +5,61 @@ const returningUserDisplay = document.querySelector('#returning-user') as HTMLEl
 const userNameDisplay = document.querySelector('#user') as HTMLElement
 const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement
 
-const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: boolean) => {
-    reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | Last Reviewed By ${lastReviewer} ${isLoyal ? '⭐':''}`
+const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: LoyaltyUser) => {
+  reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | Last Reviewed By ${lastReviewer} ${isLoyal === LoyaltyUser.GOLD_USER ? '⭐':''}`
 }
 
 const populateUser = (isReturning : boolean, userName : string ) => {
-    if (isReturning){
-        returningUserDisplay.innerHTML = 'back'
-    }
-    userNameDisplay.innerHTML = userName
+  if (isReturning){
+    returningUserDisplay.innerHTML = 'back'
+  }
+  userNameDisplay.innerHTML = userName
+}
+
+// ENUMS
+enum Permission {
+  ADMIN = 'ADMIN', 
+  READ_ONLY = 'READ_ONLY',
+}
+
+enum LoyaltyUser {
+  GOLD_USER = 'GOLD_USER',
+  SILVER_USER = 'SILVER_USER',
+  BRONZE_USER = 'BRONZE_USER',
 }
 
 // REVIEWS
-const reviews: {
-  name: string;
-  stars: number;
-  loyaltyUser: boolean;
-  date: string;
-}[] = [
+const reviews : { 
+  name: string; 
+  stars: number; 
+  loyaltyUser: LoyaltyUser; 
+  date: string
+  }[] = [
   {
     name: 'Sheia',
     stars: 5,
-    loyaltyUser: true,
+    loyaltyUser: LoyaltyUser.GOLD_USER,
     date: '01-04-2021'
   },
   {
     name: 'Andrzej',
     stars: 3,
-    loyaltyUser: false,
+    loyaltyUser: LoyaltyUser.BRONZE_USER,
     date: '28-03-2021'
   },
   {
     name: 'Omar',
     stars: 4,
-    loyaltyUser: true,
+    loyaltyUser: LoyaltyUser.SILVER_USER,
     date: '27-03-2021'
   },
 ]
 
 // USER
-const you: {
-  firstName: string;
-  lastName: string;
-  isReturning: boolean;
-  age: number;
-  stayedAt: string[];
-} = {
+const you= {
   firstName: 'Kwandile',
   lastName: 'Mgenge',
+  permissions: Permission.ADMIN,
   isReturning: true,
   age: 22,
   stayedAt: ['durban-home', 'braam-flat', 'capetown-unit']

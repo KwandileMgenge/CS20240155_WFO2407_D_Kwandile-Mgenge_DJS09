@@ -4,7 +4,7 @@ var returningUserDisplay = document.querySelector('#returning-user');
 var userNameDisplay = document.querySelector('#user');
 var reviewTotalDisplay = document.querySelector('#reviews');
 var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
-    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal ? '⭐' : '');
+    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal === LoyaltyUser.GOLD_USER ? '⭐' : '');
 };
 var populateUser = function (isReturning, userName) {
     if (isReturning) {
@@ -12,24 +12,36 @@ var populateUser = function (isReturning, userName) {
     }
     userNameDisplay.innerHTML = userName;
 };
+// ENUMS
+var Permission;
+(function (Permission) {
+    Permission["ADMIN"] = "ADMIN";
+    Permission["READ_ONLY"] = "READ_ONLY";
+})(Permission || (Permission = {}));
+var LoyaltyUser;
+(function (LoyaltyUser) {
+    LoyaltyUser["GOLD_USER"] = "GOLD_USER";
+    LoyaltyUser["SILVER_USER"] = "SILVER_USER";
+    LoyaltyUser["BRONZE_USER"] = "BRONZE_USER";
+})(LoyaltyUser || (LoyaltyUser = {}));
 // REVIEWS
 var reviews = [
     {
         name: 'Sheia',
         stars: 5,
-        loyaltyUser: true,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
         date: '01-04-2021'
     },
     {
         name: 'Andrzej',
         stars: 3,
-        loyaltyUser: false,
+        loyaltyUser: LoyaltyUser.BRONZE_USER,
         date: '28-03-2021'
     },
     {
         name: 'Omar',
         stars: 4,
-        loyaltyUser: true,
+        loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021'
     },
 ];
@@ -37,6 +49,7 @@ var reviews = [
 var you = {
     firstName: 'Kwandile',
     lastName: 'Mgenge',
+    permissions: Permission.ADMIN,
     isReturning: true,
     age: 22,
     stayedAt: ['durban-home', 'braam-flat', 'capetown-unit']

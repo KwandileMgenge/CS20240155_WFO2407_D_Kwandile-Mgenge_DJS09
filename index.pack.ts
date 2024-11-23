@@ -21,8 +21,9 @@ const reviews = [
   },
 ]
 
-const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string) => {
-  reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | Last Reviewed By ${lastReviewer}`
+const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: boolean) => {
+  reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | 
+                                    Last Reviewed By ${lastReviewer} ${isLoyal ? '⭐':''}`
 }
 
-showReviewTotal(reviews.length, reviews[0].name)
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)

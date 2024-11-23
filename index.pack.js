@@ -19,7 +19,7 @@ var reviews = [
         date: '27-03-2021'
     },
 ];
-var showReviewTotal = function (totalNoOfReviews, lastReviewer) {
-    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | Last Reviewed By ").concat(lastReviewer);
+var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
+    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | \n                                    Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal ? '⭐' : '');
 };
-showReviewTotal(reviews.length, reviews[0].name);
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);

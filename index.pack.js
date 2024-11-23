@@ -1,4 +1,5 @@
 var propertyContainer = document.querySelector('.properties');
+var footer = document.querySelector('.footer');
 var returningUserDisplay = document.querySelector('#returning-user');
 var userNameDisplay = document.querySelector('#user');
 var reviewTotalDisplay = document.querySelector('#reviews');
@@ -52,7 +53,7 @@ var properties = [
             code: 45632,
             country: 'Colombia'
         },
-        contact: 'marywinkle@gmail.com',
+        contact: [+112343823978921, 'marywinkle@gmail.com'],
         isAvailable: true
     },
     {
@@ -65,7 +66,7 @@ var properties = [
             code: 343903,
             country: 'Poland'
         },
-        contact: 'garydavis@hotmail.com',
+        contact: [+1298239028490830, 'garydavis@hotmail.com'],
         isAvailable: false
     },
     {
@@ -78,7 +79,7 @@ var properties = [
             code: 35433,
             country: 'United Kingdom',
         },
-        contact: 'andyluger@aol.com',
+        contact: [+34829374892553, 'andyluger@aol.com'],
         isAvailable: true
     }
 ];
@@ -103,3 +104,6 @@ properties.map(function (property) {
     card.appendChild(image);
     propertyContainer.appendChild(card);
 });
+// LOCATION
+var currentLocation = ['Cape Town', '01:40', 18];
+footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°C';

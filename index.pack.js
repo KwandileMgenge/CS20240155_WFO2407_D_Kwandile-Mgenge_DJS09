@@ -19,7 +19,7 @@ var reviews = [
         date: '27-03-2021'
     },
 ];
-var showReviewTotal = function (totalNoOfReviews) {
-    reviewTotalDisplay.textContent = totalNoOfReviews.toString();
+var showReviewTotal = function (totalNoOfReviews, lastReviewer) {
+    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | Last Reviewed By ").concat(lastReviewer);
 };
-showReviewTotal(reviews.length);
+showReviewTotal(reviews.length, reviews[0].name);

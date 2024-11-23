@@ -30,6 +30,7 @@ var you = {
     lastName: 'Brown',
     isReturning: true,
     age: 35,
+    stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
 };
 var populateUser = function (isReturning, userName) {
     if (isReturning) {

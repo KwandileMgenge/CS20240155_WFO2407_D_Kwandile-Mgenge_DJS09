@@ -26,8 +26,10 @@ var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
 };
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 var you = {
-    userName: 'Bobby',
+    firstName: 'Bobby',
+    lastName: 'Brown',
     isReturning: true,
+    age: 35,
 };
 var populateUser = function (isReturning, userName) {
     if (isReturning) {
@@ -35,4 +37,4 @@ var populateUser = function (isReturning, userName) {
     }
     userNameDisplay.innerHTML = userName;
 };
-populateUser(you.isReturning, you.userName);
+populateUser(you.isReturning, you.firstName);

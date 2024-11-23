@@ -1,6 +1,17 @@
+var propertyContainer = document.querySelector('.properties');
 var returningUserDisplay = document.querySelector('#returning-user');
 var userNameDisplay = document.querySelector('#user');
 var reviewTotalDisplay = document.querySelector('#reviews');
+var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
+    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal ? '⭐' : '');
+};
+var populateUser = function (isReturning, userName) {
+    if (isReturning) {
+        returningUserDisplay.innerHTML = 'back';
+    }
+    userNameDisplay.innerHTML = userName;
+};
+// REVIEWS
 var reviews = [
     {
         name: 'Sheia',
@@ -21,10 +32,6 @@ var reviews = [
         date: '27-03-2021'
     },
 ];
-var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
-    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | \n                                    Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal ? '⭐' : '');
-};
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 // USER
 var you = {
     firstName: 'Kwandile',
@@ -36,7 +43,7 @@ var you = {
 // PROPERTIES
 var properties = [
     {
-        image: '',
+        image: 'images/colombia-property.jpg',
         title: 'Colombian Shack',
         price: 45,
         location: {
@@ -49,7 +56,7 @@ var properties = [
         isAvailable: true
     },
     {
-        image: '',
+        image: 'images/poland-property.jpg',
         title: 'Polish Cottage',
         price: 34,
         location: {
@@ -62,7 +69,7 @@ var properties = [
         isAvailable: false
     },
     {
-        image: '',
+        image: 'images/london-property.jpg',
         title: 'London Flat',
         price: 23,
         location: {
@@ -75,10 +82,24 @@ var properties = [
         isAvailable: true
     }
 ];
-var populateUser = function (isReturning, userName) {
-    if (isReturning) {
-        returningUserDisplay.innerHTML = 'back';
-    }
-    userNameDisplay.innerHTML = userName;
-};
+// FUNCTIONS
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 populateUser(you.isReturning, you.firstName);
+// for (let i = 0; i < properties.length; i++) {
+//   const card = document.createElement('div')
+//   card.classList.add('card')
+//   card.innerHTML = properties[i].title
+//   const image = document.createElement('img')
+//   image.setAttribute('src', properties[i].image)
+//   card.appendChild(image)
+//   propertyContainer.appendChild(card)
+// }
+properties.map(function (property) {
+    var card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = property.title;
+    var image = document.createElement('img');
+    image.setAttribute('src', property.image);
+    card.appendChild(image);
+    propertyContainer.appendChild(card);
+});

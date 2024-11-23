@@ -1,7 +1,20 @@
+const propertyContainer = document.querySelector('.properties') as HTMLElement
 const returningUserDisplay = document.querySelector('#returning-user') as HTMLElement
 const userNameDisplay = document.querySelector('#user') as HTMLElement
 const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement
 
+const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: boolean) => {
+    reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | Last Reviewed By ${lastReviewer} ${isLoyal ? '⭐':''}`
+}
+
+const populateUser = (isReturning : boolean, userName : string ) => {
+    if (isReturning){
+        returningUserDisplay.innerHTML = 'back'
+    }
+    userNameDisplay.innerHTML = userName
+}
+
+// REVIEWS
 const reviews: {
   name: string;
   stars: number;
@@ -27,13 +40,6 @@ const reviews: {
     date: '27-03-2021'
   },
 ]
-
-const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: boolean) => {
-  reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | 
-                                    Last Reviewed By ${lastReviewer} ${isLoyal ? '⭐':''}`
-}
-
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
 
 // USER
 const you: {
@@ -65,7 +71,7 @@ const properties : {
   isAvailable: boolean;
 }[] = [
   {
-    image: '',
+    image: 'images/colombia-property.jpg',
     title: 'Colombian Shack',
     price: 45,
     location: {
@@ -78,7 +84,7 @@ const properties : {
     isAvailable: true  
   },
   {
-    image: '',
+    image: 'images/poland-property.jpg',
     title: 'Polish Cottage',
     price: 34,
     location: {
@@ -91,7 +97,7 @@ const properties : {
     isAvailable: false 
   },
   {
-    image: '',
+    image: 'images/london-property.jpg',
     title: 'London Flat',
     price: 23,
     location: {
@@ -105,11 +111,27 @@ const properties : {
   }
 ]
 
-const populateUser = (isReturning : boolean, userName : string ) => {
-  if (isReturning){
-    returningUserDisplay.innerHTML = 'back'
-  }
-  userNameDisplay.innerHTML = userName
-}
+// FUNCTIONS
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
 
 populateUser(you.isReturning, you.firstName)
+
+// for (let i = 0; i < properties.length; i++) {
+//   const card = document.createElement('div')
+//   card.classList.add('card')
+//   card.innerHTML = properties[i].title
+//   const image = document.createElement('img')
+//   image.setAttribute('src', properties[i].image)
+//   card.appendChild(image)
+//   propertyContainer.appendChild(card)
+// }
+
+properties.map(property => {
+  const card = document.createElement('div')
+  card.classList.add('card')
+  card.innerHTML = property.title
+  const image = document.createElement('img')
+  image.setAttribute('src', property.image)
+  card.appendChild(image)
+  propertyContainer.appendChild(card)
+})

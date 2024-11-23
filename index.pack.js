@@ -1,3 +1,5 @@
+var returningUserDisplay = document.querySelector('#returning-user');
+var userNameDisplay = document.querySelector('#user');
 var reviewTotalDisplay = document.querySelector('#reviews');
 var reviews = [
     {
@@ -23,3 +25,14 @@ var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
     reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | \n                                    Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal ? '⭐' : '');
 };
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
+var you = {
+    userName: 'Bobby',
+    isReturning: true,
+};
+var populateUser = function (isReturning, userName) {
+    if (isReturning) {
+        returningUserDisplay.innerHTML = 'back';
+    }
+    userNameDisplay.innerHTML = userName;
+};
+populateUser(you.isReturning, you.userName);

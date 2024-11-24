@@ -1,4 +1,7 @@
 var propertyContainer = document.querySelector('.properties');
+var reviewContainer = document.querySelector('.reviews');
+var container = document.querySelector('.container');
+var button = document.querySelector('button');
 var footer = document.querySelector('.footer');
 var returningUserDisplay = document.querySelector('#returning-user');
 var userNameDisplay = document.querySelector('#user');
@@ -18,6 +21,10 @@ var makeMultiple = function (value) {
     }
     else
         return '';
+};
+var getTopTwoReviews = function (reviews) {
+    var sortedReviews = reviews.sort(function (a, b) { return b.stars - a.stars; });
+    return sortedReviews.slice(0, 2);
 };
 // ENUMS
 var Permission;
@@ -50,7 +57,6 @@ var reviews = [
         stars: 4,
         loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said.'
     },
 ];
 // USER
@@ -135,6 +141,27 @@ properties.map(function (property) {
     propertyContainer.appendChild(card);
     showDetails(you.permission, card, property.price);
 });
+var count = 0;
+var addReviews = function (array) {
+    if (!count) {
+        count++;
+        var topTwo = getTopTwoReviews(array);
+        // for (let i = 0; i < topTwo.length; i++) {
+        //   const card = document.createElement('div')
+        //   card.classList.add('review-card')
+        //   card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+        //   reviewContainer.appendChild(card)
+        // }
+        topTwo.map(function (review) {
+            var card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = "".concat(review.stars, " stars from ").concat(review.name);
+            reviewContainer.appendChild(card);
+        });
+        container.removeChild(button);
+    }
+};
+button.addEventListener('click', function () { return addReviews(reviews); });
 // LOCATION
 var currentLocation = ['Cape Town', '01:40', 18];
 footer.innerHTML = "".concat(currentLocation[0], " ").concat(currentLocation[1], " ").concat(currentLocation[2], "\u00B0C");

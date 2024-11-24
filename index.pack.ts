@@ -1,4 +1,7 @@
 const propertyContainer = document.querySelector('.properties') as HTMLElement
+const reviewContainer = document.querySelector('.reviews') as HTMLElement
+const container = document.querySelector('.container') as HTMLElement
+const button = document.querySelector('button') as HTMLElement
 const footer = document.querySelector('.footer') as HTMLElement
 
 const returningUserDisplay = document.querySelector('#returning-user') as HTMLElement
@@ -22,6 +25,11 @@ const makeMultiple = (value: number): string => {
   } else return ''
 }
 
+const getTopTwoReviews = (reviews: Review[]) : Review[] => {
+  const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
+  return sortedReviews.slice(0,2)
+}
+
 // ENUMS
 enum Permission {
   ADMIN = 'ADMIN', 
@@ -38,8 +46,15 @@ enum LoyaltyUser {
 type Price = 45 | 30 | 25
 type Country = 'Colombia' | 'Poland' | 'United Kingdom'
 
+interface Review {
+  name: string;
+  stars: number;
+  loyaltyUser: LoyaltyUser;
+  date: string;
+}
+
 // REVIEWS
-const reviews : any[] = [
+const reviews : Review[] = [
   {
     name: 'Sheia',
     stars: 5,
@@ -57,12 +72,11 @@ const reviews : any[] = [
     stars: 4,
     loyaltyUser: LoyaltyUser.SILVER_USER,
     date: '27-03-2021',
-    description: 'Great hosts, location was a bit further than said.'
   },
 ]
 
 // USER
-const you= {
+const you = {
   firstName: 'Kwandile',
   lastName: 'Mgenge',
   permission: Permission.ADMIN,
@@ -163,6 +177,29 @@ properties.map(property => {
   propertyContainer.appendChild(card)
   showDetails(you.permission, card, property.price)
 })
+
+let count = 0
+const addReviews = (array: Review[]) : void => {
+  if (!count ) {
+    count++
+    const topTwo = getTopTwoReviews(array)
+    // for (let i = 0; i < topTwo.length; i++) {
+    //   const card = document.createElement('div')
+    //   card.classList.add('review-card')
+    //   card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+    //   reviewContainer.appendChild(card)
+    // }
+    topTwo.map(review => {
+      const card = document.createElement('div')
+      card.classList.add('review-card')
+      card.innerHTML = `${review.stars} stars from ${review.name}`
+      reviewContainer.appendChild(card)
+    }) 
+    container.removeChild(button) 
+  }
+}
+
+button.addEventListener('click', () => addReviews(reviews))
 
 // LOCATION
 let currentLocation: [string, string, number] = ['Cape Town', '01:40', 18]

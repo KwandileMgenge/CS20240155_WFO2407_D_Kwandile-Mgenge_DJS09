@@ -86,7 +86,7 @@ var properties = [
     {
         image: 'images/poland-property.jpg',
         title: 'Polish Cottage',
-        price: 34,
+        price: 30,
         location: {
             firstLine: 'no 23',
             city: 'Gdansk',
@@ -99,7 +99,7 @@ var properties = [
     {
         image: 'images/london-property.jpg',
         title: 'London Flat',
-        price: 23,
+        price: 25,
         location: {
             firstLine: 'flat 15',
             city: 'London',
@@ -165,3 +165,21 @@ button.addEventListener('click', function () { return addReviews(reviews); });
 // LOCATION
 var currentLocation = ['Cape Town', '01:40', 18];
 footer.innerHTML = "".concat(currentLocation[0], " ").concat(currentLocation[1], " ").concat(currentLocation[2], "\u00B0C");
+var MainProperty = /** @class */ (function () {
+    function MainProperty(src, title, reviews) {
+        this.src = src;
+        this.title = title;
+        this.reviews = reviews;
+    }
+    return MainProperty;
+}());
+var yourMainProperty = new MainProperty('images/italian-property.jpg', 'Italian House', [{
+        name: 'Olive',
+        stars: 5,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
+        date: '12-04-2021'
+    }]);
+var mainImageContainer = document.querySelector('.main-image');
+var image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+mainImageContainer.appendChild(image);

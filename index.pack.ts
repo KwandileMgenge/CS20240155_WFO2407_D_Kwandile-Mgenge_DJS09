@@ -29,12 +29,7 @@ enum LoyaltyUser {
 }
 
 // REVIEWS
-const reviews : { 
-  name: string; 
-  stars: number; 
-  loyaltyUser: LoyaltyUser; 
-  date: string
-  }[] = [
+const reviews : any[] = [
   {
     name: 'Sheia',
     stars: 5,
@@ -51,7 +46,8 @@ const reviews : {
     name: 'Omar',
     stars: 4,
     loyaltyUser: LoyaltyUser.SILVER_USER,
-    date: '27-03-2021'
+    date: '27-03-2021',
+    description: 'Great hosts, location was a bit further than said.'
   },
 ]
 
@@ -59,7 +55,7 @@ const reviews : {
 const you= {
   firstName: 'Kwandile',
   lastName: 'Mgenge',
-  permissions: Permission.ADMIN,
+  permission: Permission.ADMIN,
   isReturning: true,
   age: 22,
   stayedAt: ['durban-home', 'braam-flat', 'capetown-unit']
@@ -135,6 +131,18 @@ populateUser(you.isReturning, you.firstName)
 //   propertyContainer.appendChild(card)
 // }
 
+let authorityStatus : any
+
+let isLoggedIn = false
+
+const showDetails = (authorityStatus: boolean | Permission, element : HTMLDivElement, price: number) => {
+  if (authorityStatus) {
+    const priceDisplay = document.createElement('div')
+    priceDisplay.innerHTML = `${price.toString()}/night`
+    element.appendChild(priceDisplay)
+  }
+}
+
 properties.map(property => {
   const card = document.createElement('div')
   card.classList.add('card')
@@ -143,8 +151,9 @@ properties.map(property => {
   image.setAttribute('src', property.image)
   card.appendChild(image)
   propertyContainer.appendChild(card)
+  showDetails(you.permission, card, property.price)
 })
 
 // LOCATION
 let currentLocation: [string, string, number] = ['Cape Town', '01:40', 18]
-footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°C'
+footer.innerHTML = `${currentLocation[0]} ${currentLocation[1]} ${currentLocation[2]}°C`

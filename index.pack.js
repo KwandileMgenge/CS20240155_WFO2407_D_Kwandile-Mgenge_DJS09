@@ -42,14 +42,15 @@ var reviews = [
         name: 'Omar',
         stars: 4,
         loyaltyUser: LoyaltyUser.SILVER_USER,
-        date: '27-03-2021'
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said.'
     },
 ];
 // USER
 var you = {
     firstName: 'Kwandile',
     lastName: 'Mgenge',
-    permissions: Permission.ADMIN,
+    permission: Permission.ADMIN,
     isReturning: true,
     age: 22,
     stayedAt: ['durban-home', 'braam-flat', 'capetown-unit']
@@ -108,6 +109,15 @@ populateUser(you.isReturning, you.firstName);
 //   card.appendChild(image)
 //   propertyContainer.appendChild(card)
 // }
+var authorityStatus;
+var isLoggedIn = false;
+var showDetails = function (authorityStatus, element, price) {
+    if (authorityStatus) {
+        var priceDisplay = document.createElement('div');
+        priceDisplay.innerHTML = "".concat(price.toString(), "/night");
+        element.appendChild(priceDisplay);
+    }
+};
 properties.map(function (property) {
     var card = document.createElement('div');
     card.classList.add('card');
@@ -116,7 +126,8 @@ properties.map(function (property) {
     image.setAttribute('src', property.image);
     card.appendChild(image);
     propertyContainer.appendChild(card);
+    showDetails(you.permission, card, property.price);
 });
 // LOCATION
 var currentLocation = ['Cape Town', '01:40', 18];
-footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°C';
+footer.innerHTML = "".concat(currentLocation[0], " ").concat(currentLocation[1], " ").concat(currentLocation[2], "\u00B0C");

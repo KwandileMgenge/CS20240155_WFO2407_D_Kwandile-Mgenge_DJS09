@@ -3,7 +3,7 @@ module.exports = {
     "filename": "[name].pack.js"
   },
   "entry": {
-    "index": "./index"
+    "index": "./index.js"
   },
   "resolve": {
     "extensions": [

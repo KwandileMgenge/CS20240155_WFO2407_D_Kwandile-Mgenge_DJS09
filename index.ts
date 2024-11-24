@@ -1,71 +1,15 @@
+import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils.ts'
+import { Permission , LoyaltyUser } from './enums.ts'
+import { Review, Property } from './interfaces.ts'
+import MainProperty from './classes.ts' 
+
 const propertyContainer = document.querySelector('.properties') as HTMLElement
 const reviewContainer = document.querySelector('.reviews') as HTMLElement
 const container = document.querySelector('.container') as HTMLElement
 const button = document.querySelector('button') as HTMLElement
 const footer = document.querySelector('.footer') as HTMLElement
 
-const returningUserDisplay = document.querySelector('#returning-user') as HTMLElement
-const userNameDisplay = document.querySelector('#user') as HTMLElement
-const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement
-
-const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: LoyaltyUser) => {
-  reviewTotalDisplay.textContent = `${totalNoOfReviews.toString()} Review${makeMultiple(totalNoOfReviews)} | Last Reviewed By ${lastReviewer} ${isLoyal === LoyaltyUser.GOLD_USER ? '⭐':''}`
-}
-
-const populateUser = (isReturning : boolean, userName : string ) => {
-  if (isReturning){
-    returningUserDisplay.innerHTML = 'back'
-  }
-  userNameDisplay.innerHTML = userName
-}
-
-const makeMultiple = (value: number): string => {
-  if (value > 1 || value == 0 ) {
-    return 's'
-  } else return ''
-}
-
-const getTopTwoReviews = (reviews: Review[]) : Review[] => {
-  const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
-  return sortedReviews.slice(0,2)
-}
-
-// ENUMS
-enum Permission {
-  ADMIN = 'ADMIN', 
-  READ_ONLY = 'READ_ONLY',
-}
-
-enum LoyaltyUser {
-  GOLD_USER = 'GOLD_USER',
-  SILVER_USER = 'SILVER_USER',
-  BRONZE_USER = 'BRONZE_USER',
-}
-
-// TYPES
-type Price = 45 | 35 | 30 | 25
-type Country = 'Colombia' | 'Poland' | 'United Kingdom' | 'Malaysia'
-
-interface Review {
-  name: string;
-  stars: number;
-  loyaltyUser: LoyaltyUser;
-  date: string;
-}
-
-interface Property {
-  image: string;
-  title: string;
-  price: Price;
-  location: {
-      firstLine: string;
-      city: string;
-      code: number | string;
-      country: Country
-  }
-  contact: [ number, string];
-  isAvailable: boolean;
-}
+let isLoggedIn: boolean
 
 // REVIEWS
 const reviews : Review[] = [
@@ -172,15 +116,7 @@ populateUser(you.isReturning, you.firstName)
 
 let authorityStatus : any
 
-let isLoggedIn = false
-
-const showDetails = (authorityStatus: boolean | Permission, element : HTMLDivElement, price: number) => {
-  if (authorityStatus) {
-    const priceDisplay = document.createElement('div')
-    priceDisplay.innerHTML = `${price.toString()}/night`
-    element.appendChild(priceDisplay)
-  }
-}
+isLoggedIn = false
 
 properties.map(property => {
   const card = document.createElement('div')
@@ -194,6 +130,7 @@ properties.map(property => {
 })
 
 let count = 0
+
 const addReviews = (array: Review[]) : void => {
   if (!count ) {
     count++
@@ -220,16 +157,6 @@ button.addEventListener('click', () => addReviews(reviews))
 let currentLocation: [string, string, number] = ['Cape Town', '01:40', 18]
 footer.innerHTML = `${currentLocation[0]} ${currentLocation[1]} ${currentLocation[2]}°C`
 
-class MainProperty {
-  src: string
-  title: string
-  reviews: Review[]
-  constructor(src, title, reviews) {
-    this.src = src
-    this.title = title
-    this.reviews = reviews
-  }
-}
 let yourMainProperty = new MainProperty(
   'images/italian-property.jpg', 
   'Italian House',

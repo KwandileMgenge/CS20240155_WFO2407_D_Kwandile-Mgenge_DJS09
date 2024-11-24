@@ -4,13 +4,20 @@ var returningUserDisplay = document.querySelector('#returning-user');
 var userNameDisplay = document.querySelector('#user');
 var reviewTotalDisplay = document.querySelector('#reviews');
 var showReviewTotal = function (totalNoOfReviews, lastReviewer, isLoyal) {
-    reviewTotalDisplay.textContent = "Review Total ".concat(totalNoOfReviews.toString(), " | Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal === LoyaltyUser.GOLD_USER ? '⭐' : '');
+    reviewTotalDisplay.textContent = "".concat(totalNoOfReviews.toString(), " Review").concat(makeMultiple(totalNoOfReviews), " | Last Reviewed By ").concat(lastReviewer, " ").concat(isLoyal === LoyaltyUser.GOLD_USER ? '⭐' : '');
 };
 var populateUser = function (isReturning, userName) {
     if (isReturning) {
         returningUserDisplay.innerHTML = 'back';
     }
     userNameDisplay.innerHTML = userName;
+};
+var makeMultiple = function (value) {
+    if (value > 1 || value == 0) {
+        return 's';
+    }
+    else
+        return '';
 };
 // ENUMS
 var Permission;

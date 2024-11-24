@@ -6,7 +6,7 @@ const userNameDisplay = document.querySelector('#user') as HTMLElement
 const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement
 
 const showReviewTotal = (totalNoOfReviews: number, lastReviewer: string, isLoyal: LoyaltyUser) => {
-  reviewTotalDisplay.textContent = `Review Total ${totalNoOfReviews.toString()} | Last Reviewed By ${lastReviewer} ${isLoyal === LoyaltyUser.GOLD_USER ? '⭐':''}`
+  reviewTotalDisplay.textContent = `${totalNoOfReviews.toString()} Review${makeMultiple(totalNoOfReviews)} | Last Reviewed By ${lastReviewer} ${isLoyal === LoyaltyUser.GOLD_USER ? '⭐':''}`
 }
 
 const populateUser = (isReturning : boolean, userName : string ) => {
@@ -14,6 +14,12 @@ const populateUser = (isReturning : boolean, userName : string ) => {
     returningUserDisplay.innerHTML = 'back'
   }
   userNameDisplay.innerHTML = userName
+}
+
+const makeMultiple = (value: number): string => {
+  if (value > 1 || value == 0 ) {
+    return 's'
+  } else return ''
 }
 
 // ENUMS
@@ -27,6 +33,10 @@ enum LoyaltyUser {
   SILVER_USER = 'SILVER_USER',
   BRONZE_USER = 'BRONZE_USER',
 }
+
+// TYPES
+type Price = 45 | 30 | 25
+type Country = 'Colombia' | 'Poland' | 'United Kingdom'
 
 // REVIEWS
 const reviews : any[] = [

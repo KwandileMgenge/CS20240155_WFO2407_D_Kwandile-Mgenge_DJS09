@@ -43,8 +43,8 @@ enum LoyaltyUser {
 }
 
 // TYPES
-type Price = 45 | 30 | 25
-type Country = 'Colombia' | 'Poland' | 'United Kingdom'
+type Price = 45 | 35 | 30 | 25
+type Country = 'Colombia' | 'Poland' | 'United Kingdom' | 'Malaysia'
 
 interface Review {
   name: string;
@@ -139,7 +139,20 @@ const properties : Property[] = [
     },
     contact: [+34829374892553, 'andyluger@aol.com'],
     isAvailable: true
-  }
+  },
+  {
+    image: 'images/malaysian-hotel.jpeg',
+    title: 'Malia Hotel',
+    price: 35,
+    location: {
+      firstLine: 'Room 4',
+      city: 'Malia',
+      code: 45334,
+      country: 'Malaysia'
+    },
+    contact: [ +60349822083, 'lee34@gmail.com'],
+    isAvailable: false
+}
 ]
 
 // FUNCTIONS
